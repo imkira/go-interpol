@@ -33,7 +33,11 @@ When run, it should output `Hello World!!!`.
 ```go
 package main
 
-import "github.com/imkira/go-interpol"
+import (
+	"fmt"
+
+	"github.com/imkira/go-interpol"
+)
 
 func main() {
 	m := map[string]string{
@@ -41,11 +45,11 @@ func main() {
 		"bar": "World",
 	}
 	str, err := interpol.WithMap("{foo} {bar}!!!", m)
-  if err != nil {
-    fmt.Printf("Error: %v\n", err)
-    return
-  }
-  fmt.Println(str)
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		return
+	}
+	fmt.Println(str)
 }
 ```
 

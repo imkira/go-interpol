@@ -10,11 +10,10 @@ go:
 
 before_install:
   - go get -u golang.org/x/tools/cmd/cover
-  - go get -u github.com/golang/lint/golint
-  - go get -u golang.org/x/tools/cmd/vet
 
 script:
-  - make
+  - make test
+  - make cover
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

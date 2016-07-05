@@ -3,7 +3,7 @@
 [![License](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://github.com/imkira/go-interpol/blob/master/LICENSE.txt)
 [![GoDoc](https://godoc.org/github.com/imkira/go-interpol?status.svg)](https://godoc.org/github.com/imkira/go-interpol)
 [![Build Status](http://img.shields.io/travis/imkira/go-interpol.svg?style=flat)](https://travis-ci.org/imkira/go-interpol)
-[![Coverage](http://img.shields.io/codecov/c/github/imkira/go-interpol.svg?style=flat)](https://codecov.io/github/imkira/go-interpol)
+[![Coverage](https://codecov.io/gh/imkira/go-interpol/branch/master/graph/badge.svg)](https://codecov.io/gh/imkira/go-interpol)
 
 interpol is a [Go](http://golang.org) package for doing format-string like
 string interpolation using named parameters.

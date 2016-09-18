@@ -1,18 +1,21 @@
-.PHONY: all gofmt golint govet test
+.PHONY: all deps gometalinter test cover
 
-all: gofmt golint govet test cover
+all: gometalinter test cover
 
-gofmt:
-	gofmt -s=true -d=true -l=true .
+deps:
+	go get -u github.com/alecthomas/gometalinter
+	gometalinter --install
 
-golint:
-	golint .
-
-govet:
-	go tool vet -all -v=true *.go
+gometalinter:
+	gometalinter --vendor --deadline=1m --tests \
+		--enable=gofmt \
+		--enable=goimports \
+		--enable=lll \
+		--enable=misspell \
+		--enable=unused
 
 test:
-	go test -v -race -cpu=1,2,4 -coverprofile=coverage.txt -covermode=atomic
+	go test -v -race -cpu=1,2,4 -coverprofile=coverage.txt -covermode=atomic -benchmem -bench .
 
 cover:
 	go tool cover -html=coverage.txt -o coverage.html

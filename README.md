@@ -5,6 +5,7 @@
 [![Build Status](http://img.shields.io/travis/imkira/go-interpol.svg?style=flat)](https://travis-ci.org/imkira/go-interpol)
 [![Coverage](https://codecov.io/gh/imkira/go-interpol/branch/master/graph/badge.svg)](https://codecov.io/gh/imkira/go-interpol)
 [![codebeat badge](https://codebeat.co/badges/61cb131b-7f57-49ea-8270-d4cffee858f6)](https://codebeat.co/projects/github-com-imkira-go-interpol)
+[![goreportcard](https://goreportcard.com/badge/github.com/imkira/go-interpol)](https://goreportcard.com/report/github.com/imkira/go-interpol)
 
 interpol is a [Go](http://golang.org) package for doing format-string like
 string interpolation using named parameters.

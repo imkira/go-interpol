@@ -4,9 +4,11 @@ import "io"
 
 // Options contains all options supported by an Interpolator.
 type Options struct {
-	Template io.Reader
-	Format   Func
-	Output   io.Writer
+	Template       io.Reader
+	Format         Func
+	Output         io.Writer
+	StartDelimiter rune
+	EndDelimiter   rune
 }
 
 // Option is an option that can be applied to an Interpolator.

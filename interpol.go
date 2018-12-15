@@ -35,24 +35,37 @@ func New(opts ...Option) *Interpolator {
 
 // NewWithOptions creates a new interpolator with the given options.
 func NewWithOptions(opts *Options) *Interpolator {
+	startDelimiter := '{'
+	endDelimiter := '}'
+	var empty rune
+	if opts.StartDelimiter != empty {
+		startDelimiter = opts.StartDelimiter
+	}
+	if opts.EndDelimiter != empty {
+		endDelimiter = opts.EndDelimiter
+	}
 	return &Interpolator{
-		template: templateReader(opts),
-		output:   outputWriter(opts),
-		format:   opts.Format,
-		rb:       make([]rune, 0, 64),
-		start:    -1,
-		closing:  false,
+		startDelimiter: startDelimiter,
+		endDelimiter:   endDelimiter,
+		template:       templateReader(opts),
+		output:         outputWriter(opts),
+		format:         opts.Format,
+		rb:             make([]rune, 0, 64),
+		start:          -1,
+		closing:        false,
 	}
 }
 
 // Interpolator interpolates Template to Output, according to Format.
 type Interpolator struct {
-	template io.RuneReader
-	output   runeWriter
-	format   Func
-	rb       []rune
-	start    int
-	closing  bool
+	template       io.RuneReader
+	output         runeWriter
+	format         Func
+	rb             []rune
+	start          int
+	closing        bool
+	startDelimiter rune
+	endDelimiter   rune
 }
 
 // Interpolate reads runes from Template and writes them to Output, with the
@@ -75,9 +88,9 @@ func (i *Interpolator) Interpolate() error {
 
 func (i *Interpolator) parse(r rune, pos int) error {
 	switch r {
-	case '{':
+	case i.startDelimiter:
 		return i.open(pos)
-	case '}':
+	case i.endDelimiter:
 		return i.close()
 	default:
 		return i.append(r)

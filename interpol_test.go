@@ -228,6 +228,38 @@ func TestWithMapKeyNotFound(t *testing.T) {
 	}
 }
 
+func TestWithMapKeyExistsDifferentDelimiters(t *testing.T) {
+	m := map[string]string{
+		"test": "World",
+		"data": "!!!",
+	}
+	buffer := bytes.NewBuffer(nil)
+	format := func(key string, w io.Writer) error {
+		value, ok := m[key]
+		if !ok {
+			return ErrKeyNotFound
+		}
+		_, err := w.Write([]byte(value))
+		return err
+	}
+	opts := &Options{
+		Template:       strings.NewReader(`{"hello": "<test><data>"}`),
+		Output:         buffer,
+		Format:         format,
+		StartDelimiter: '<',
+		EndDelimiter:   '>',
+	}
+	i := NewWithOptions(opts)
+	err := i.Interpolate()
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := buffer.String()
+	if got != `{"hello": "World!!!"}` {
+		t.Errorf("Invalid string: %q", got)
+	}
+}
+
 func TestWithMapNil(t *testing.T) {
 	str, err := WithMap("hello {test}!!!", nil)
 	if len(str) != 0 || err != ErrKeyNotFound {
